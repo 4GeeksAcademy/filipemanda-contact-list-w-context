@@ -21,23 +21,28 @@ const Layout = () => {
 	// you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
 	const basename = process.env.BASENAME || "";
 	const [contacts, setcontacts] = useState([]);
-	useEffect(() => {
+
+	const fetchMethod = () => {
 		fetch("https://playground.4geeks.com/apis/fake/contact/agenda/filipemanda")
 			.then((resp) => resp.json())
 			.then((data) => (setcontacts(data)));
-	}, []);
+	}
+	useEffect(
+		() => 
+		fetchMethod()
+	, []);
 
 	return (
 		<div>
-			<AppContext.Provider value={{ contacts, setcontacts }}>
+			<AppContext.Provider value={{ contacts, setcontacts, fetchMethod}}>
 				<BrowserRouter basename={basename}>
 					<ScrollToTop>
 						<Navbar />
 						<Routes>
 
 							<Route path="/" element={<Contacts />} />
-							<Route path="/modal" element={<Modal />} />
 							<Route path="/addcontact" element={<AddContact />} />
+							<Route path="/modal" element={<Modal />} />
 							<Route path="/contactcard" element={<ContactCard />} />
 							<Route path="/demo" element={<Demo />} />
 							<Route path="/single/:theid" element={<Single />} />
