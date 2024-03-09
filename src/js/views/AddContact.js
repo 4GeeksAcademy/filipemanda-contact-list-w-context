@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../layout";
+import { Context } from "../store/appContext";
 
 
 export const AddContact = () => {
@@ -9,7 +10,7 @@ export const AddContact = () => {
 	const [phone, setPhone] = useState("")
 	const [address, setAddress] = useState("")
 	const { contacts, setcontacts } = useContext(AppContext);
-
+	const { store, actions } = useContext(Context);
 
 
 	const handleSave = () => {
